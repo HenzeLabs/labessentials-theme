@@ -1,0 +1,209 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "image_banner_xGgak3": {
+      "type": "image-banner",
+      "blocks": {
+        "heading_eJcb9C": {
+          "type": "heading",
+          "settings": {
+            "heading": "Reliable Lab Equipment, Made Simple",
+            "heading_size": "h1"
+          }
+        },
+        "text_QjqXnE": {
+          "type": "text",
+          "settings": {
+            "text": "Affordable, high‑performance microscopes and lab tools trusted by schools, clinics, and research labs.",
+            "text_style": "body"
+          }
+        },
+        "buttons_AfrDkk": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop Bestsellers",
+            "button_link_1": "shopify://collections/best-sellers",
+            "button_style_secondary_1": false,
+            "button_label_2": "Explore Microscopes",
+            "button_link_2": "shopify://collections/microscopes",
+            "button_style_secondary_2": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_eJcb9C",
+        "text_QjqXnE",
+        "buttons_AfrDkk"
+      ],
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/female-scientist-using-compound-microscope-in-lab.jpg",
+        "image_overlay_opacity": 40,
+        "image_height": "medium",
+        "image_behavior": "none",
+        "desktop_content_position": "top-left",
+        "desktop_content_alignment": "left",
+        "show_text_box": true,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": true
+      }
+    },
+    "collection_list_UF8HhP": {
+      "type": "collection-list",
+      "blocks": {
+        "featured_collection_EVE6Wp": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "microscopes"
+          }
+        },
+        "featured_collection_QU3aRF": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "centrifuges"
+          }
+        },
+        "featured_collection_XgzBGG": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "microscope-cameras"
+          }
+        },
+        "featured_collection_JUdtyA": {
+          "type": "featured_collection",
+          "settings": {
+            "collection": "lab-products"
+          }
+        }
+      },
+      "block_order": [
+        "featured_collection_EVE6Wp",
+        "featured_collection_QU3aRF",
+        "featured_collection_XgzBGG",
+        "featured_collection_JUdtyA"
+      ],
+      "name": "t:sections.collection-list.presets.name",
+      "settings": {
+        "title": "Product Category Highlights",
+        "heading_size": "h1",
+        "image_ratio": "square",
+        "columns_desktop": 4,
+        "color_scheme": "scheme-1",
+        "show_view_all": false,
+        "columns_mobile": "1",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "multicolumn_tRYVaF": {
+      "type": "multicolumn",
+      "blocks": {
+        "column_Ubfx39": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Lab-Tested Reliability</strong>",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_GYcTpV": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>Free Shipping $300+</strong>",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_fndrBC": {
+          "type": "column",
+          "settings": {
+            "title": "<strong>U.S. Support</strong>",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_ACwt3g": {
+          "type": "column",
+          "settings": {
+            "title": "atisfaction Guaranteed",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_Ubfx39",
+        "column_GYcTpV",
+        "column_fndrBC",
+        "column_ACwt3g"
+      ],
+      "name": "t:sections.multicolumn.presets.name",
+      "settings": {
+        "title": "Why Labs Trust Us",
+        "heading_size": "h1",
+        "image_width": "full",
+        "image_ratio": "adapt",
+        "button_label": "Button label",
+        "button_link": "",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "primary",
+        "color_scheme": "",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "featured_collection_UkEChQ": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "best-sellers",
+        "products_to_show": 4,
+        "title": "Bestsellers",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "image_banner_xGgak3",
+    "collection_list_UF8HhP",
+    "multicolumn_tRYVaF",
+    "featured_collection_UkEChQ"
+  ]
+}
