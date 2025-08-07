@@ -315,9 +315,9 @@
 
     {% sections 'footer-group' %}
 
-    <div style="position: fixed !important; bottom: 0 !important; left: 0 !important; width: 100% !important; background: #1e1e1e !important; color: #fff !important; z-index: 999999 !important; padding: 12px !important; text-align: center !important; font-size: 14px !important; font-weight: 500 !important; display: block !important; box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;" id="sticky-cart-footer-direct">
+    <div style="position: fixed !important; bottom: 0 !important; left: 0 !important; width: 100% !important; background: #1b3353 !important; color: #fff !important; z-index: 999999 !important; padding: 16px !important; text-align: center !important; font-size: 18px !important; font-weight: 500 !important; display: block !important; box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;" id="sticky-cart-footer-direct">
       <a href="{{ routes.cart_url }}" style="color: #fff !important; text-decoration: none !important;">
-        🛒 <span id="sticky-cart-count-direct">0</span> item(s) in your cart – View Cart
+        <span id="sticky-cart-count-direct">0</span> item(s) in your cart – View Cart
       </a>
     </div>
 
@@ -325,7 +325,7 @@
       function forceFooterVisible() {
         const footer = document.getElementById('sticky-cart-footer-direct');
         if (footer) {
-          footer.style.cssText = 'position: fixed !important; bottom: 0 !important; left: 0 !important; width: 100% !important; background: #1e1e1e !important; color: #fff !important; z-index: 999999 !important; padding: 12px !important; text-align: center !important; font-size: 14px !important; font-weight: 500 !important; display: block !important; box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;';
+          footer.style.cssText = 'position: fixed !important; bottom: 0 !important; left: 0 !important; width: 100% !important; background: #1b3353 !important; color: #fff !important; z-index: 999999 !important; padding: 16px !important; text-align: center !important; font-size: 18px !important; font-weight: 500 !important; display: block !important; box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;';
         }
       }
 
