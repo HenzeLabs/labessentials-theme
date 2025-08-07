@@ -28,15 +28,15 @@
 
     {% render 'meta-tags' %}
 
-    <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
-    <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'constants.js' | asset_url }}" defer></script>
+    <script src="{{ 'pubsub.js' | asset_url }}" defer></script>
+    <script src="{{ 'global.js' | asset_url }}" defer></script>
+    <script src="{{ 'details-disclosure.js' | asset_url }}" defer></script>
+    <script src="{{ 'details-modal.js' | asset_url }}" defer></script>
+    <script src="{{ 'search-form.js' | asset_url }}" defer></script>
 
     {%- if settings.animations_reveal_on_scroll -%}
-      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'animations.js' | asset_url }}" defer></script>
     {%- endif -%}
 
     {{ content_for_header }}
@@ -279,7 +279,7 @@
 
     {%- if localization.available_countries.size > 1 or localization.available_languages.size > 1 -%}
       {{ 'component-localization-form.css' | asset_url | stylesheet_tag: preload: true }}
-      <script src="{{ 'localization-form.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'localization-form.js' | asset_url }}" defer></script>
     {%- endif -%}
 
     {%- if settings.predictive_search_enabled -%}
@@ -331,47 +331,7 @@
       </a>
     </div>
 
-    <script>
-      function forceFooterVisible() {
-        const footer = document.getElementById('sticky-cart-footer-direct');
-        if (footer) {
-          footer.style.cssText = 'position: fixed !important; bottom: 0 !important; left: 0 !important; width: 100% !important; background: #1b3353 !important; color: #fff !important; z-index: 999999 !important; padding: 16px !important; text-align: center !important; font-size: 18px !important; font-weight: 500 !important; display: block !important; box-shadow: 0 -2px 10px rgba(0,0,0,0.1) !important;';
-        }
-      }
-
-      function updateCartCount() {
-        fetch('/cart.js')
-          .then(res => res.json())
-          .then(cart => {
-            const count = document.getElementById('sticky-cart-count-direct');
-            if (count) {
-              count.textContent = cart.item_count;
-            }
-            forceFooterVisible();
-          })
-          .catch(() => forceFooterVisible());
-      }
-
-      // Initialize
-      forceFooterVisible();
-      
-      document.addEventListener('DOMContentLoaded', function() {
-        updateCartCount();
-      });
-
-      document.addEventListener('cart:updated', function(event) {
-        if (event.detail && event.detail.cart) {
-          const count = document.getElementById('sticky-cart-count-direct');
-          if (count) {
-            count.textContent = event.detail.cart.item_count;
-          }
-        }
-        forceFooterVisible();
-      });
-
-      // Keep it visible
-      setInterval(forceFooterVisible, 3000);
-    </script>
+    <script src="{{ 'cart-footer.js' | asset_url }}" defer></script>
 
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
@@ -424,11 +384,11 @@
     </script>
 
     {%- if settings.predictive_search_enabled -%}
-      <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'predictive-search.js' | asset_url }}" defer></script>
     {%- endif -%}
 
     {%- if settings.cart_type == 'drawer' -%}
-      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+      <script src="{{ 'cart-drawer.js' | asset_url }}" defer></script>
     {%- endif -%}
 
   </body>
