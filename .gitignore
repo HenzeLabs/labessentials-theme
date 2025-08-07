@@ -1,0 +1,19 @@
+# Node
+node_modules/
+dist/
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Shopify
+.shopify/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
