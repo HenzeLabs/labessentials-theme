@@ -1,0 +1,56 @@
+<div id="sticky-cart-footer" class="hidden sticky-cart-footer"></div>
+  <div class="sticky-cart-inner">
+    <a href="/cart" class="sticky-cart-link">
+      🛒 <span id="sticky-cart-count">0</span> item(s) in your cart – Checkout →
+    </a>
+  </div>
+</div>
+
+<style>
+  .sticky-cart-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #1e1e1e;
+    color: #fff;
+    z-index: 9999;
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .sticky-cart-footer.hidden {
+    transform: translateY(100%);
+  }
+  .sticky-cart-link {
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetch("/cart.js")
+      .then((res) => res.json())
+      .then((cart) => {
+        if (cart.item_count > 0) {
+          document.getElementById("sticky-cart-count").textContent = cart.item_count;
+          document.getElementById("sticky-cart-footer").classList.remove("hidden");
+        }
+      });
+
+    document.addEventListener("cart:updated", function (event) {
+      const cart = event.detail.cart;
+      const footer = document.getElementById("sticky-cart-footer");
+      const count = document.getElementById("sticky-cart-count");
+
+      if (cart.item_count > 0) {
+        count.textContent = cart.item_count;
+        footer.classList.remove("hidden");
+      } else {
+        footer.classList.add("hidden");
+      }
+    });
+  });
+</script>
