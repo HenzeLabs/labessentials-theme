@@ -1,0 +1,255 @@
+{% comment %}
+  G‑Force (RCF) Calculator — Interactive Section
+  Filename: sections/g-force-calculator-interactive.liquid
+  Renders an RPM↔RCF calculator with unit handling (cm/mm/in).
+  Safe to reuse; all CSS/JS is scoped to this section via section.id.
+{% endcomment %}
+
+<section id="gforce-widget-{{ section.id }}" class="gforce-widget" role="region" aria-label="G-Force (RCF) Calculator" style="--gf-border:#e5e7eb;--gf-muted:#6b7280;--gf-bg:#fff;--gf-chip:#f8fafc;--gf-text:#111;--gf-accent:#111;--gf-soft:#f9fafb;">
+  <div class="gf-card">
+    {% if section.settings.heading != blank %}
+      <h2 class="gf-title">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    {% if section.settings.intro_text != blank %}
+      <p class="gf-intro">{{ section.settings.intro_text }}</p>
+    {% endif %}
+
+    <div class="gf-tabs" role="tablist" aria-label="Calculation mode">
+      <button class="gf-tab" role="tab" id="tab-rcf-{{ section.id }}" aria-controls="panel-rcf-{{ section.id }}" aria-selected="true">
+        {{ section.settings.tab_label_rcf | default: 'RCF from RPM' }}
+      </button>
+      <button class="gf-tab" role="tab" id="tab-rpm-{{ section.id }}" aria-controls="panel-rpm-{{ section.id }}" aria-selected="false">
+        {{ section.settings.tab_label_rpm | default: 'RPM from RCF' }}
+      </button>
+    </div>
+
+    <!-- Panel: RCF from RPM -->
+    <section id="panel-rcf-{{ section.id }}" role="tabpanel" aria-labelledby="tab-rcf-{{ section.id }}">
+      <div class="gf-grid">
+        <div>
+          <label for="radius-rcf-{{ section.id }}">{{ section.settings.radius_label | default: 'Rotor radius' }}</label>
+          <div class="gf-row">
+            <input id="radius-rcf-{{ section.id }}" type="number" min="0" step="0.01" placeholder="{{ section.settings.radius_placeholder | default: 'e.g., 8.5' }}" inputmode="decimal">
+            <select id="radius-unit-rcf-{{ section.id }}" aria-label="Radius unit">
+              <option value="cm" {% if section.settings.default_unit == 'cm' %}selected{% endif %}>cm</option>
+              <option value="mm" {% if section.settings.default_unit == 'mm' %}selected{% endif %}>mm</option>
+              <option value="in" {% if section.settings.default_unit == 'in' %}selected{% endif %}>in</option>
+            </select>
+          </div>
+          {% if section.settings.radius_hint != blank %}
+            <div class="gf-muted">{{ section.settings.radius_hint }}</div>
+          {% endif %}
+        </div>
+        <div>
+          <label for="rpm-{{ section.id }}">{{ section.settings.rpm_label | default: 'RPM' }}</label>
+          <input id="rpm-{{ section.id }}" type="number" min="0" step="1" placeholder="{{ section.settings.rpm_placeholder | default: 'e.g., 3500' }}" inputmode="numeric">
+        </div>
+      </div>
+      <div class="gf-out" aria-live="polite">
+        <div class="gf-val" id="rcf-out-{{ section.id }}">{{ section.settings.output_rcf_label | default: 'RCF' }}: — g</div>
+        {% if section.settings.formula_text != blank %}
+          <div class="gf-muted">{{ section.settings.formula_text }}</div>
+        {% endif %}
+        <div class="gf-err" id="err-rcf-{{ section.id }}" hidden>{{ section.settings.error_rcf | default: 'Please enter a radius > 0 and RPM ≥ 0.' }}</div>
+      </div>
+    </section>
+
+    <!-- Panel: RPM from RCF -->
+    <section id="panel-rpm-{{ section.id }}" role="tabpanel" aria-labelledby="tab-rpm-{{ section.id }}" hidden>
+      <div class="gf-grid">
+        <div>
+          <label for="radius-rpm-{{ section.id }}">{{ section.settings.radius_label | default: 'Rotor radius' }}</label>
+          <div class="gf-row">
+            <input id="radius-rpm-{{ section.id }}" type="number" min="0" step="0.01" placeholder="{{ section.settings.radius_placeholder | default: 'e.g., 8.5' }}" inputmode="decimal">
+            <select id="radius-unit-rpm-{{ section.id }}" aria-label="Radius unit">
+              <option value="cm" {% if section.settings.default_unit == 'cm' %}selected{% endif %}>cm</option>
+              <option value="mm" {% if section.settings.default_unit == 'mm' %}selected{% endif %}>mm</option>
+              <option value="in" {% if section.settings.default_unit == 'in' %}selected{% endif %}>in</option>
+            </select>
+          </div>
+          {% if section.settings.radius_hint != blank %}
+            <div class="gf-muted">{{ section.settings.radius_hint }}</div>
+          {% endif %}
+        </div>
+        <div>
+          <label for="rcf-{{ section.id }}">{{ section.settings.rcf_label | default: 'Target RCF (g)' }}</label>
+          <input id="rcf-{{ section.id }}" type="number" min="0" step="1" placeholder="{{ section.settings.rcf_placeholder | default: 'e.g., 2000' }}" inputmode="numeric">
+        </div>
+      </div>
+      <div class="gf-out" aria-live="polite">
+        <div class="gf-val" id="rpm-out-{{ section.id }}">{{ section.settings.output_rpm_label | default: 'RPM' }}: —</div>
+        {% if section.settings.formula_text_rpm != blank %}
+          <div class="gf-muted">{{ section.settings.formula_text_rpm }}</div>
+        {% endif %}
+        <div class="gf-err" id="err-rpm-{{ section.id }}" hidden>{{ section.settings.error_rpm | default: 'Please enter a radius > 0 and RCF ≥ 0.' }}</div>
+      </div>
+    </section>
+
+    {% if section.settings.disclaimer != blank %}
+      <p class="gf-disclaimer">{{ section.settings.disclaimer }}</p>
+    {% endif %}
+
+    {% if section.settings.cta_text != blank and section.settings.cta_url != blank %}
+      <p class="gf-cta"><a class="gf-button" href="{{ section.settings.cta_url }}">{{ section.settings.cta_text }}</a></p>
+    {% endif %}
+  </div>
+
+  <style>
+    #gforce-widget-{{ section.id }} *{box-sizing:border-box}
+    #gforce-widget-{{ section.id }} .gf-card{border:1px solid var(--gf-border);border-radius:12px;padding:18px;background:var(--gf-bg);box-shadow:0 1px 2px rgba(0,0,0,.04);color:var(--gf-text);max-width:880px;margin:0 auto}
+    #gforce-widget-{{ section.id }} .gf-title{margin:0 0 8px;font:600 22px/1.3 inherit}
+    #gforce-widget-{{ section.id }} .gf-intro{margin:0 0 14px;color:#374151}
+    #gforce-widget-{{ section.id }} .gf-tabs{display:flex;gap:8px;margin-bottom:14px}
+    #gforce-widget-{{ section.id }} .gf-tab{flex:1;padding:10px 12px;border:1px solid var(--gf-border);background:var(--gf-chip);border-radius:8px;cursor:pointer;font-weight:600}
+    #gforce-widget-{{ section.id }} .gf-tab[aria-selected="true"]{background:var(--gf-accent);color:#fff;border-color:var(--gf-accent)}
+    #gforce-widget-{{ section.id }} .gf-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    #gforce-widget-{{ section.id }} label{display:block;font-size:13px;color:#374151;margin:2px 0 6px}
+    #gforce-widget-{{ section.id }} input, #gforce-widget-{{ section.id }} select{width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;background:#fff;font:16px/1.3 inherit}
+    #gforce-widget-{{ section.id }} .gf-row{display:grid;grid-template-columns:1fr minmax(90px,150px);gap:8px}
+    #gforce-widget-{{ section.id }} .gf-muted{font-size:12px;color:var(--gf-muted);margin-top:6px}
+    #gforce-widget-{{ section.id }} .gf-out{margin-top:10px;padding:12px;border:1px dashed #cbd5e1;border-radius:10px;background:var(--gf-soft)}
+    #gforce-widget-{{ section.id }} .gf-val{font-size:22px;font-weight:800}
+    #gforce-widget-{{ section.id }} .gf-err{color:#b91c1c;font-size:13px;margin-top:6px}
+    #gforce-widget-{{ section.id }} .gf-disclaimer{font-size:12px;color:#4b5563;margin-top:14px}
+    #gforce-widget-{{ section.id }} .gf-cta{margin-top:14px}
+    #gforce-widget-{{ section.id }} .gf-button{display:inline-block;background:#111;color:#fff;text-decoration:none;padding:10px 14px;border-radius:8px}
+    @media (max-width:640px){#gforce-widget-{{ section.id }} .gf-grid{grid-template-columns:1fr}}
+  </style>
+
+  <script>
+    (function(){
+      const root = document.getElementById('gforce-widget-{{ section.id }}');
+      if(!root) return;
+
+      const $ = (sel) => root.querySelector(sel);
+      const tabs = [$('#tab-rcf-{{ section.id }}'), $('#tab-rpm-{{ section.id }}')];
+      const panels = [$('#panel-rcf-{{ section.id }}'), $('#panel-rpm-{{ section.id }}')];
+
+      function setTab(ix){
+        tabs.forEach((t,i)=>{
+          const on = i===ix;
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+          panels[i].hidden = !on;
+        });
+      }
+      tabs[0].addEventListener('click', ()=>setTab(0));
+      tabs[1].addEventListener('click', ()=>setTab(1));
+
+      const k = 1.118e-5; // constant for RCF when radius in centimeters
+
+      function toCm(val, unit){
+        const x = parseFloat(val);
+        if (!isFinite(x)) return NaN;
+        switch(unit){
+          case 'cm': return x;
+          case 'mm': return x / 10;
+          case 'in': return x * 2.54;
+          default:   return NaN;
+        }
+      }
+
+      const nf0 = new Intl.NumberFormat(undefined, {maximumFractionDigits:0});
+
+      // RCF from RPM
+      const elRadiusRcf = $('#radius-rcf-{{ section.id }}');
+      const elUnitRcf   = $('#radius-unit-rcf-{{ section.id }}');
+      const elRpm       = $('#rpm-{{ section.id }}');
+      const elRcfOut    = $('#rcf-out-{{ section.id }}');
+      const elErrRcf    = $('#err-rcf-{{ section.id }}');
+
+      function calcRCF(){
+        const rCm = toCm(elRadiusRcf.value, elUnitRcf.value);
+        const rpm = parseFloat(elRpm.value);
+        if (rCm > 0 && rpm >= 0 && isFinite(rCm) && isFinite(rpm)){
+          const rcf = k * rCm * rpm * rpm;
+          elRcfOut.textContent = '{{ section.settings.output_rcf_label | default: "RCF" }}: ' + nf0.format(rcf) + ' g';
+          elErrRcf.hidden = true;
+        } else {
+          elRcfOut.textContent = '{{ section.settings.output_rcf_label | default: "RCF" }}: — g';
+          elErrRcf.hidden = false;
+        }
+      }
+
+      // RPM from RCF
+      const elRadiusRpm = $('#radius-rpm-{{ section.id }}');
+      const elUnitRpm   = $('#radius-unit-rpm-{{ section.id }}');
+      const elRcfIn     = $('#rcf-{{ section.id }}');
+      const elRpmOut    = $('#rpm-out-{{ section.id }}');
+      const elErrRpm    = $('#err-rpm-{{ section.id }}');
+
+      function calcRPM(){
+        const rCm = toCm(elRadiusRpm.value, elUnitRpm.value);
+        const rcf = parseFloat(elRcfIn.value);
+        if (rCm > 0 && rcf >= 0 && isFinite(rCm) && isFinite(rcf)){
+          const rpm = Math.sqrt(rcf / (k * rCm));
+          elRpmOut.textContent = '{{ section.settings.output_rpm_label | default: "RPM" }}: ' + nf0.format(rpm);
+          elErrRpm.hidden = true;
+        } else {
+          elRpmOut.textContent = '{{ section.settings.output_rpm_label | default: "RPM" }}: —';
+          elErrRpm.hidden = false;
+        }
+      }
+
+      [elRadiusRcf, elUnitRcf, elRpm].forEach(el => el.addEventListener('input', calcRCF));
+      [elRadiusRpm, elUnitRpm, elRcfIn].forEach(el => el.addEventListener('input', calcRPM));
+
+      // Prefill friendly example
+      elRadiusRcf.value = '{{ section.settings.prefill_radius | default: "8.5" }}';
+      elRpm.value = '{{ section.settings.prefill_rpm | default: "3500" }}';
+      calcRCF();
+    })();
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "G-Force Calculator",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "G‑Force Calculator: Convert RPM ↔ RCF" },
+    { "type": "richtext", "id": "intro_text", "label": "Intro text", "default": "Convert Revolutions Per Minute (RPM) to Relative Centrifugal Force (RCF) and back. RCF reflects true separation power." },
+
+    { "type": "text", "id": "tab_label_rcf", "label": "Tab label — RCF from RPM", "default": "RCF from RPM" },
+    { "type": "text", "id": "tab_label_rpm", "label": "Tab label — RPM from RCF", "default": "RPM from RCF" },
+
+    { "type": "text", "id": "radius_label", "label": "Radius label", "default": "Rotor radius" },
+    { "type": "text", "id": "radius_placeholder", "label": "Radius placeholder", "default": "e.g., 8.5" },
+    { "type": "text", "id": "radius_hint", "label": "Radius helper text", "default": "Radius = distance from rotor center to sample (bottom of tube)." },
+
+    { "type": "text", "id": "rpm_label", "label": "RPM label", "default": "RPM" },
+    { "type": "text", "id": "rpm_placeholder", "label": "RPM placeholder", "default": "e.g., 3500" },
+
+    { "type": "text", "id": "rcf_label", "label": "RCF label", "default": "Target RCF (g)" },
+    { "type": "text", "id": "rcf_placeholder", "label": "RCF placeholder", "default": "e.g., 2000" },
+
+    { "type": "select", "id": "default_unit", "label": "Default radius unit", "default": "cm", "options": [
+      { "value": "cm", "label": "cm" },
+      { "value": "mm", "label": "mm" },
+      { "value": "in", "label": "inches" }
+    ]},
+
+    { "type": "text", "id": "output_rcf_label", "label": "Output label — RCF", "default": "RCF" },
+    { "type": "text", "id": "output_rpm_label", "label": "Output label — RPM", "default": "RPM" },
+
+    { "type": "text", "id": "prefill_radius", "label": "Prefill radius", "default": "8.5" },
+    { "type": "text", "id": "prefill_rpm", "label": "Prefill RPM", "default": "3500" },
+
+    { "type": "richtext", "id": "formula_text", "label": "Formula text (RCF panel)", "default": "Formula: <strong>RCF = 1.118×10⁻⁵ × radius(cm) × RPM²</strong>" },
+    { "type": "richtext", "id": "formula_text_rpm", "label": "Formula text (RPM panel)", "default": "Formula: <strong>RPM = √(RCF ÷ (1.118×10⁻⁵ × radius(cm)))</strong>" },
+
+    { "type": "text", "id": "error_rcf", "label": "Error text (RCF panel)", "default": "Please enter a radius > 0 and RPM ≥ 0." },
+    { "type": "text", "id": "error_rpm", "label": "Error text (RPM panel)", "default": "Please enter a radius > 0 and RCF ≥ 0." },
+
+    { "type": "richtext", "id": "disclaimer", "label": "Disclaimer", "default": "This calculator provides approximate values. Always consult your centrifuge’s manual for critical applications." },
+
+    { "type": "text", "id": "cta_text", "label": "CTA text", "default": "Need a Centrifuge? Shop Our Collection" },
+    { "type": "url", "id": "cta_url", "label": "CTA link", "default": "/collections/centrifuges" }
+  ],
+  "blocks": [],
+  "presets": [
+    { "name": "G‑Force Calculator (Interactive)" }
+  ]
+}
+{% endschema %}

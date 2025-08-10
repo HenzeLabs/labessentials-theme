@@ -1,0 +1,19 @@
+<section id="trust-bullets" class="trust-bullets">
+  <ul>
+    {% for bullet in section.settings.bullets %}
+      <li>
+        <img src="{{ bullet.icon | image_url: 'small' }}" alt="{{ bullet.alt }}" width="50" height="50">
+        <p>{{ bullet.text }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Bullets",
+  "settings": [
+    { "type": "list", "id": "bullets", "label": "Bullets", "default": [] }
+  ]
+}
+{% endschema %}

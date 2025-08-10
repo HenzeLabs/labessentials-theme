@@ -1,0 +1,29 @@
+<section id="text-image-grid" class="text-image-grid">
+  <div class="grid">
+    {% for block in section.blocks %}
+      <div class="grid-item">
+        <img src="{{ block.settings.image | image_url: 'master' }}" alt="{{ block.settings.image_alt }}" width="600" height="400">
+        <h3>{{ block.settings.heading }}</h3>
+        <p>{{ block.settings.body }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Text Image Grid",
+  "blocks": [
+    {
+      "type": "grid_item",
+      "name": "Grid Item",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "image_alt", "label": "Image Alt Text" },
+        { "type": "text", "id": "heading", "label": "Heading" },
+        { "type": "textarea", "id": "body", "label": "Body Text" }
+      ]
+    }
+  ]
+}
+{% endschema %}
